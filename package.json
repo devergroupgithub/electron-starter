@@ -4,7 +4,7 @@
   "description": "electronpuppeteer",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
-    "build-dll": "cross-env NODE_ENV=development webpack --config ./configs/webpack.config.renderer.dev.dll.babel.js --colors",
+    "build-dll": "cross-env NODE_ENV=development  webpack --config ./configs/webpack.config.renderer.dev.dll.babel.js --colors",
     "build-e2e": "cross-env E2E_BUILD=true yarn build",
     "build-main": "cross-env NODE_ENV=production webpack --config ./configs/webpack.config.main.prod.babel.js --colors",
     "build-renderer": "cross-env NODE_ENV=production webpack --config ./configs/webpack.config.renderer.prod.babel.js --colors",
@@ -19,7 +19,7 @@
     "preinstall": "node ./internals/scripts/CheckYarn.js",
     "prestart": "yarn build",
     "start": "cross-env START_HOT=1 node -r @babel/register ./internals/scripts/CheckPortInUse.js && cross-env START_HOT=1 yarn start-renderer-dev",
-    "start:prod": "cross-env NODE_ENV=production electron ./app/main.prod.js",
+    "start:prod": "cross-env NODE_ENV=production electron ./release/here/dist/main.prod.js",
     "start-main-debug": "yarn start-main-dev --inspect=5858 --remote-debugging-port=9223",
     "start-main-dev": "cross-env START_HOT=1 NODE_ENV=development electron -r ./internals/scripts/BabelRegister ./app/electron/index.js",
     "start-renderer-dev": "cross-env NODE_ENV=development webpack-dev-server --config configs/webpack.config.renderer.dev.babel.js"
@@ -38,14 +38,7 @@
   "build": {
     "productName": "ElectronReact",
     "appId": "org.develar.ElectronReact",
-    "files": [
-      "dist/",
-      "node_modules/",
-      "app.html",
-      "main.prod.js",
-      "main.prod.js.map",
-      "package.json"
-    ],
+    "files": ["dist", "node_modules/", "app.html", "package.json"],
     "dmg": {
       "contents": [
         {
@@ -130,13 +123,13 @@
     "husky": "^4.2.5",
     "jest": "^26.1.0",
     "lint-staged": "^10.2.11",
+    "logger": "^0.0.1",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.14.1",
     "opencollective-postinstall": "^2.0.3",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "prettier": "^2.0.5",
     "react-test-renderer": "^16.12.0",
-    "logger": "^3.0.6",
     "rimraf": "^3.0.0",
     "sass-loader": "^9.0.3",
     "style-loader": "^1.2.1",
@@ -153,13 +146,12 @@
   },
   "dependencies": {
     "@hot-loader/react-dom": "^16.13.0",
+    "clone-deep": "^4.0.1",
     "electron-debug": "^3.1.0",
     "electron-log": "^4.2.4",
     "electron-updater": "^4.3.4",
     "history": "^4.7.2",
-    "puppeteer": "^5.5.0",
-    "puppeteer-extra": "^3.1.15",
-    "puppeteer-extra-plugin-stealth": "^2.6.5",
+    "merge-deep": "^3.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.12.0",
     "react-hot-loader": "^4.12.21",

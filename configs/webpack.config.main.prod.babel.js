@@ -24,7 +24,7 @@ export default merge(baseConfig, {
   entry: './app/electron/index.js',
 
   output: {
-    path: path.join(__dirname, '..'),
+    path: path.join(__dirname, '../app'),
     filename: './dist/main.prod.js',
   },
 
@@ -52,6 +52,7 @@ export default merge(baseConfig, {
       DEBUG_PROD: false,
       START_MINIMIZED: false,
       E2E_BUILD: false,
+      ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES: true,
     }),
   ],
 

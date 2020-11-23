@@ -22,7 +22,9 @@ export default {
       },
     ],
   },
-
+  stats: {
+    warnings: false,
+  },
   output: {
     path: path.join(__dirname, '..', 'app'),
     // https://github.com/webpack/webpack/issues/1114
@@ -35,6 +37,9 @@ export default {
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
     modules: [path.join(__dirname, '..', 'app'), 'node_modules'],
+    alias: {
+      'clone-deep': path.join(__dirname, '../node_modules/clone-deep'),
+    },
   },
 
   optimization: {
@@ -44,6 +49,7 @@ export default {
   plugins: [
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'production',
+      ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES: true,
     }),
   ],
 };

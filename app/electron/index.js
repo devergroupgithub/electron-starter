@@ -5,7 +5,7 @@ import { app, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
-import { registerEvents } from './utils'
+import { registerEvents } from './utils';
 
 export default class AppUpdater {
   constructor() {
@@ -30,7 +30,7 @@ if (
 }
 
 const createWindow = async () => {
-  app.allowRendererProcessReuse = true
+  app.allowRendererProcessReuse = true;
   const RESOURCES_PATH = app.isPackaged
     ? path.join(process.resourcesPath, 'resources')
     : path.join(__dirname, '../resources');
@@ -52,11 +52,14 @@ const createWindow = async () => {
             nodeIntegration: true,
           }
         : {
-            preload: path.join(__dirname, 'dist/renderer.prod.js'),
+            nodeIntegration: true,
+            preload: path.join(__dirname, 'renderer.prod.js'),
           },
   });
 
-  mainWindow.loadURL(`file://${path.join(__dirname, '../')}/app.html`);
+  process.env.NODE_ENV === 'development'
+    ? mainWindow.loadURL(`file://${path.join(__dirname, '../')}/app.html`)
+    : mainWindow.loadURL(`file://${path.join(__dirname, '../')}/app.html`);
 
   mainWindow.webContents.on('did-finish-load', () => {
     if (!mainWindow) {

@@ -33,7 +33,7 @@ export default merge(baseConfig, {
   ],
 
   output: {
-    path: path.join(__dirname, '..', './dist'),
+    path: path.join(__dirname, '../app/dist'),
     publicPath: './dist/',
     filename: 'renderer.prod.js',
   },
@@ -204,6 +204,7 @@ export default merge(baseConfig, {
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'production',
       DEBUG_PROD: false,
+      ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES: true,
       E2E_BUILD: false,
     }),
 
